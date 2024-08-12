@@ -1,3 +1,5 @@
+## Geofencing App
+
 # Welcome to your React Native app 👋
 
 ## Get started
@@ -38,8 +40,6 @@ Follow a step-by-step tutorial where you'll create a project that runs on Androi
 
 Join our community of developers creating universal apps.
 
-
-## Geofencing App
 
 **Mobile App Project Structure Guide**
 
