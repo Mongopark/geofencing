@@ -1,49 +1,53 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Text, View } from 'react-native';
 
 import { HelloWave } from '@/components/component/HelloWave';
 import ParallaxScrollView from '@/components/component/ParallaxScrollView';
 import { ThemedText } from '@/components/component/ThemedText';
 import { ThemedView } from '@/components/component/ThemedView';
+import { useColorScheme } from '@/components/hooks/useColorScheme';
+import { useThemeStore, useAuthStore } from "@/components/store";
+import Pressable from '@/components/component/Pressable';
+import { Sun1 } from 'iconsax-react-native';
+
+
 
 export default function HomeScreen() {
+  const colorScheme = useColorScheme();
+  const themeChange = useThemeStore((state: any) => state.setTheme);
+  const theme = useThemeStore((state: any) => state.color);
+
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: '#0a7ea4', dark: theme == 'light'?'#0a7ea4':'#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require('@/assets/images/phone-tracker.jpg')}
           style={styles.reactLogo}
         />
       }>
+      <ThemedText type="welcome">welcome to
+      <HelloWave /></ThemedText>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText type="title">Geofence It!</ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle" style={{color: theme=='light' ?'#0a7ea4':'skyblue'}}>App Descripton</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
+        Welcome to <ThemedText type="defaultSemiBold">Geofence It!</ThemedText> Manage your locations with ease and get notified when you enter or leave designated areas.
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+        <ThemedText type="subtitle" style={{color: theme=='light' ?'#0a7ea4':'skyblue'}}>Security Feature</ThemedText>
         <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
+        With Geofence It!, you can monitor your movements, set up geofences, and receive alerts when you cross boundaries.
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+        <ThemedText type="subtitle" style={{color: theme=='light' ?'#0a7ea4':'skyblue'}}>Get Started</ThemedText>
         <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+          To begin to access the benefits of this application, simply click here <ThemedText type="defaultSemiBold">Map Screen</ThemedText> and to access user profile, manage datas, configurations, and instructions of how to use, click here
+          <ThemedText type="defaultSemiBold"> Settings Screen</ThemedText>, please allow the location permission where necessary
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
@@ -61,8 +65,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   reactLogo: {
-    height: 178,
-    width: 290,
+    height: '85%',
+    width: '100%',
     bottom: 0,
     left: 0,
     position: 'absolute',

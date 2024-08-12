@@ -1,6 +1,6 @@
-## Geofencing App
+# Geofencing App
 
-# Welcome to your React Native app 👋
+## Welcome to your React Native app 👋
 
 ## Get started
 
@@ -52,12 +52,12 @@ practices for organizing your codebase. Let's get started:
     1. Project Structure
 
     - 1.1. Components Directory
-    - 1.2. Slices (Redux Reducers)
+    - 1.2. Zustand (stores)
     - 1.3. Navigation
     - 1.4. Features
     - 1.5. Utils and Helpers or Services
 -
-    2. Redux Setup
+    2. Zustand Setup
 -
     3. Styling
 -
@@ -73,13 +73,14 @@ practices for organizing your codebase. Let's get started:
 * Organize components based on their functionality (e.g., buttons, cards, forms).
 * Each component should have its own folder containing the component file, styles, and tests.
 
-**1.2. Slices (Redux Reducers)**
+**1.2. Zustand (store)**
 
-* We are using Redux Toolkit to manage state.
-* Create a `slice` file in your feature folder to store individual slice files.
-* For global slices, create a `slices` folder in the root directory.
-* Each slice represents a piece of state (e.g., user, counter).
-* Define initial state, reducers, and actions in each slice.
+* We are using Zustand to manage state.
+* The reason for using Zustand over Redux is because Zustand although less popular, it is more efficient, with shorter codes and a more direct approach when compared to Redux
+* Create a `store` folder in the feature where the state will be required, this store folder folder will carry all the different stores for that very feature folder such as userStore, adminStore, mapStore etc this store will be designated to just that directory and it's contents alone.
+* For global stores, such as the theme changer and the authentication, a stiore file should be placed in the root directory
+* Each store represents a piece of state (e.g., user, counter).
+* Define initial state, types, and actions in each store.
 
 **1.3. Navigation**
 
@@ -97,11 +98,11 @@ practices for organizing your codebase. Let's get started:
 * Use the `utils` folder for utility functions, API calls, and other shared logic.
 * Keep your code DRY by centralizing common functionality.
 
-**2. Redux Setup**
+**2. Zustand Setup**
 
-* We are using Redux Toolkit (@reduxjs/toolkit).
-* Our redux store is at `src/store.ts`.
-* Combine all your slices (reducers) in the store.
+* We are using Zustand, you will have to install Zustand (zustand) dependency.
+* Our Zustand global store is at `src/store.ts`.
+* Include all your global states in the store.
 
 **3. Styling**
 

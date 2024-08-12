@@ -5,6 +5,7 @@ import MapView, { Marker, Circle, } from 'react-native-maps';
 import { requestLocationPermission, trackUserLocation } from '../../services/LocationService';
 import Location, { LocationObjectCoords } from 'expo-location';
 import { registerForPushNotificationsAsync, sendNotification } from '../../services/Notifier';
+import { useThemeStore, useBoundaryStore } from "@/components/store";
 
 
 const GEOFENCE_TASK = 'GEOFENCE_TASK';
@@ -12,7 +13,8 @@ const GEOFENCE_TASK = 'GEOFENCE_TASK';
 export default function App() {
   const [location, setLocation] = useState<LocationObjectCoords | null>(null);
   const [geofenceCoords, setGeofenceCoords] = useState(null);
-  const [geofenceRadius, setGeofenceRadius] = useState(200); // Radius in meters
+  const boundary = useBoundaryStore((state) => state.boundary);
+  const [geofenceRadius, setGeofenceRadius] = useState(boundary); // Radius in meters
   const [geofencingEnabled, setGeofencingEnabled] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
   const [expoPushToken, setExpoPushToken] = useState<string | null>(null);
@@ -25,6 +27,15 @@ export default function App() {
     fetchToken();
   }, []);
 
+
+  useEffect(() => {
+    if (boundary) {
+    setGeofenceRadius(boundary)
+    }
+  })
+  
+  
+
   const handleSendNotification = () => {
     sendNotification("You've got mail! 📬", "Here is the notification body", { data: 'goes here' });
   };
@@ -36,7 +47,8 @@ export default function App() {
 
       trackUserLocation((coords) => {
         setLocation(coords);
-        console.log(location);
+        console.log(location, boundary);
+        console.log(boundary);
       });
 
       const loc = await Location.getCurrentPositionAsync({});
@@ -106,7 +118,7 @@ export default function App() {
         <Marker coordinate={location} title="Your Location" />
         {geofenceCoords && (
           <>
-            <Marker coordinate={geofenceCoords} title="Geofence Center" />
+            <Marker coordinate={geofenceCoords} title="Geofence Center" pinColor="blue" />
             <Circle
               center={geofenceCoords}
               radius={geofenceRadius}
